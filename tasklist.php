@@ -121,6 +121,18 @@ $result = mysqli_query($conn, $tsaklist);
             </div>
 
             <div class="col p-4 gap-2 min-vh-100">
+                <?php if (isset($_SESSION['success'])) { ?>
+                    <div class="alert alert-success alert-dismissible fade show" role="alert">
+                        <strong><?php echo $_SESSION['success'] ?></strong> 
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close" onclick="<?php unset($_SESSION['success']); ?>"></button>
+                    </div>
+                <?php } ?>
+                <?php if (isset($_SESSION['error'])) { ?>
+                    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                        <strong><?php echo $_SESSION['error'] ?></strong> 
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close" onclick="<?php unset($_SESSION['success']); ?>"></button>
+                    </div>
+                <?php } ?>
 
 
 

@@ -1,53 +1,61 @@
 <?php
 include 'dbconnection.php';
 
-if($_SERVER['REQUEST_METHOD']=="POST"){
+if ($_SERVER['REQUEST_METHOD'] == "POST") {
     $title = $_POST['title'];
     $due = $_POST['due'];
-    $status= $_POST['status'];
-    $desc= $_POST['desc'];
+    $status = $_POST['status'];
+    $desc = $_POST['desc'];
 
     $id = $_POST['id'];
-    
+
+    $url =$_POST['url'];
+
 
 
     $isValid = true;
 
 
-    if(empty($title)){
-        $_SESSION['titleErr']= "Title is required.";
+    if (empty($title)) {
+        $_SESSION['titleErr'] = "Title is required.";
         $isValid = false;
-    }else{
+    } else {
         $newtitle = $title;
     }
 
-    if(empty($due)){
-        $_SESSION['dueErr']= "Due Date is required.";
+    if (empty($due)) {
+        $_SESSION['dueErr'] = "Due Date is required.";
         $isValid = false;
-    }else{
+    } else {
         $newdue = $due;
     }
 
     if ($isValid) {
         
+
         $sql = "update  task set  title='$newtitle', description ='$desc', due_date='$newdue', status ='$status' where id='$id'";
         if (mysqli_query($conn, $sql)) {
-            header("Location: tasklist.php");
+            // header("Location: tasklist.php");
+
+            $_SESSION['success']='Task Edited Successfully';
+
+            
+                header("Location: $url");
+            
+
+
+
             exit();
         } else {
-            echo "Error: " . $sql . "<br>" . mysqli_error($conn);
+            $_SESSION['error']="Error: " . $sql . "<br>" . mysqli_error($conn);
+
         }
     } else {
-        
+
         $_SESSION["titleval"] = $title;
         $_SESSION["dueval"] = $due;
         $_SESSION["statusval"] = $status;
         $_SESSION["descval"] = $desc;
         header("Location: dashboard.php");
     }
-
-
 }
-
-
-?>

@@ -4,10 +4,11 @@ $id = $_GET['id'];
 
 $deleteTask = "delete from task where id = '$id'";
 
+$url = $_SERVER['HTTP_REFERER'];
 if (mysqli_query($conn, $deleteTask)) {
-    header("Location: dashboard.php");
+    $_SESSION['success'] = 'Task Deleted Successfully';
+    header("Location: $url");
     exit();
 } else {
-    echo "Error: " . $sql . "<br>" . mysqli_error($conn);
+    $_SESSION['error'] = "Error: " . $sql . "<br>" . mysqli_error($conn);
 }
-?>

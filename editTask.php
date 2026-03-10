@@ -17,6 +17,7 @@ if (mysqli_num_rows($resultEdit) > 0) {
 // echo $rowEdit['description'];
 // exit();
 
+
 ?>
 
 <!DOCTYPE html>
@@ -147,6 +148,7 @@ if (mysqli_num_rows($resultEdit) > 0) {
 
                         <div class="row">
                             <input type="hidden" name="id" value="<?php echo $rowEdit['id']; ?>">
+                            <input type="hidden" name="url" value="<?php echo $_SERVER['HTTP_REFERER'];?>">
 
 
                             <div class="col-md-6 mb-3">

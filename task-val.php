@@ -8,6 +8,9 @@ if($_SERVER['REQUEST_METHOD']=="POST"){
     $desc= $_POST['desc'];
 
     $id = $_SESSION['u_id'];
+
+    
+
     
 
 
@@ -33,6 +36,7 @@ if($_SERVER['REQUEST_METHOD']=="POST"){
         if (mysqli_query($conn, $sql)) {
             $_SESSION['success']='Task Added Successfully';
             header("Location: dashboard.php");
+
             
             exit();
         } else {

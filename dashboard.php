@@ -11,6 +11,18 @@ $tsaklist = "select * from task where user_id = $id order by created_date desc l
 
 $result = mysqli_query($conn, $tsaklist);
 
+$totaltask = "select count(*) as total from task where user_id = $id ";
+$tresult = mysqli_query($conn, $totaltask);
+$total = mysqli_fetch_assoc($tresult);
+
+$pendigt="select count(*) as pending from task where user_id = $id and status = 'pending'";
+$presult = mysqli_query($conn, $pendigt);
+$pending = mysqli_fetch_assoc($presult);
+
+$completedt="select count(*) as completed from task where user_id = $id and status = 'completed'";
+$cresult = mysqli_query($conn, $completedt);
+$completed = mysqli_fetch_assoc($cresult);
+
 ?>
 
 <!DOCTYPE html>
@@ -155,6 +167,7 @@ $result = mysqli_query($conn, $tsaklist);
                     <form method="post" action="task-val.php" id="taskForm">
 
                         <div class="row">
+                            <input type="hidden" name="url" value="<?php echo $_SERVER['HTTP_REFERER'];?>">
 
 
                             <div class="col-md-6 mb-3">
@@ -220,6 +233,35 @@ $result = mysqli_query($conn, $tsaklist);
                     ?>
 
                 </div>
+
+                <div class="row row-cols-1 row-cols-md-3 row-cols-lg-3 g-4 mt-2 d-flex align-items-center">
+
+                    <div class="col align-item-center">
+                            <div class="card shadow-sm p-4 d-flex justify-content-center align-items-center "
+                                style="background:#fff; color:#212529; border-radius:12px;">
+                                <h5 class="fs-4">Total Task</h5>
+                                <h5 class="mt-2"><?php echo $total['total']; ?></h5>
+                            </div>
+                        </div>
+                        <div class="col align-item-center">
+                            <div class="card shadow-sm p-4  d-flex justify-content-center align-items-center "
+                                style="background:#fff; color:#212529; border-radius:12px;">
+                                
+                                <h5 class="fs-4">Pending Task</h5>
+                                <h5 class="mt-2"><?php echo $pending['pending']; ?></h5>
+                            </div>
+                        </div>
+                        <div class="col align-item-center">
+                            <div class="card shadow-sm p-4  d-flex justify-content-center align-items-center "
+                                style="background:#fff; color:#212529; border-radius:12px;">
+                                
+                                <h5 class="fs-4">Completed Task</h5>
+                                <h5 class="mt-2"><?php echo $completed['completed']; ?></h5>
+                            </div>
+                        </div>
+                </div>
+
+
                 <div class="row m-2">
 
                     <div class="col-md-3  col-sm-6 mt-3 p-2   d-flex align-items-center justify-content-center"
